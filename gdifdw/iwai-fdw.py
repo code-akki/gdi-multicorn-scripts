@@ -43,13 +43,6 @@ class IwaiFdw(ForeignDataWrapper):
                 ERROR,
             )
 
-        # self.https_proxy = options.get("https_proxy", None)
-        # if self.https_proxy is None:
-        #     log_to_postgres(
-        #         "HTTPS proxy is not set. Set the HTTPS proxy using foreign table option 'https_proxy'",
-        #         WARNING,
-        #     )
-
         self.columns = columns
 
     def execute(self, quals, columns):
@@ -134,5 +127,6 @@ class IwaiFdw(ForeignDataWrapper):
                 "nw_class": i["properties"]["NW_Class"],
                 "geom": json.dumps(i["geometry"]),
                 "name": waterway_name
+                "id": id
             }
             id = id + 1
