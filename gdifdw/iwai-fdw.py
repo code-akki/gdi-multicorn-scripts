@@ -76,7 +76,7 @@ class IwaiFdw(ForeignDataWrapper):
 
         api_response = []
         try:
-            r = self.session.post(
+            r = self.session.get(
                 API+'/'+waterway_name,
                 timeout=TIMEOUT_SEC,
                 headers={"Authorization": "Bearer " + self.jwt_key},
