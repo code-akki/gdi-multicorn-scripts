@@ -126,7 +126,7 @@ class IwaiFdw(ForeignDataWrapper):
                 "end_long": i["properties"]["End_Long"],
                 "nw_class": i["properties"]["NW_Class"],
                 "geom": json.dumps(i["geometry"]),
-                "name": waterway_name
+                "name": waterway_name,
                 "id": id
             }
             id = id + 1
