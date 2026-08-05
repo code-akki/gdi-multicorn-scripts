@@ -116,6 +116,8 @@ class IwaiFdw(ForeignDataWrapper):
 
         id = 1
         for i in api_response:
+            if len(i["geometry"]["coordinates"]) > 2:
+                i["geometry"]["coordinates"].pop(2)
             yield {
                 "nw_name": i["properties"]["NW_Name"],
                 "river_name": i["properties"]["River_Name"],
