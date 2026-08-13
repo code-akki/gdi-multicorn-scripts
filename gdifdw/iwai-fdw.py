@@ -15,6 +15,8 @@ from requests import (
 import json
 import jwt
 import time
+import shapely
+from shapely.geometry import shape, mapping
 
 REQUESTS_CACHE_FILENAME = "iwai-cache"
 API = "https://ntcpwcit.in/vesseltracker/api/gdpdc/national-waterways"
@@ -116,8 +118,6 @@ class IwaiFdw(ForeignDataWrapper):
 
         id = 1
         for i in api_response:
-            if len(i["geometry"]["coordinates"]) > 2:
-                i["geometry"]["coordinates"].pop(2)
             yield {
                 "nw_name": i["properties"]["NW_Name"],
                 "river_name": i["properties"]["River_Name"],
@@ -127,7 +127,7 @@ class IwaiFdw(ForeignDataWrapper):
                 "end_lat": i["properties"]["End_Lat"],
                 "end_long": i["properties"]["End_Long"],
                 "nw_class": i["properties"]["NW_Class"],
-                "geom": json.dumps(i["geometry"]),
+                "geom": json.dumps(mapping(shapely.force_2d(shape(i["geometry"])))),
                 "name": waterway_name,
                 "id": id
             }
