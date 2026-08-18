@@ -122,14 +122,14 @@ class IwaiFdw(ForeignDataWrapper):
             if geom.has_z:
                 geom = shapely.force_2d(geom)
             yield {
-                "nw_name": i["properties"]["NW_Name"],
-                "river_name": i["properties"]["River_Name"],
-                "length": i["properties"]["Length"],
-                "start_lat": i["properties"]["Start_Lat"],
-                "start_long": i["properties"]["Start_Long"],
-                "end_lat": i["properties"]["End_Lat"],
-                "end_long": i["properties"]["End_Long"],
-                "nw_class": i["properties"]["NW_Class"],
+                "nw_name": i["properties"].get("NW_Name"),
+                "river_name": i["properties"].get("River_Name"),
+                "length": i["properties"].get("Length"),
+                "start_lat": i["properties"].get("Start_Lat"),
+                "start_long": i["properties"].get("Start_Long"),
+                "end_lat": i["properties"].get("End_Lat"),
+                "end_long": i["properties"].get("End_Long"),
+                "nw_class": i["properties"].get("NW_Class"),
                 "geom": json.dumps(mapping(geom)),
                 "name": waterway_name,
                 "id": id
